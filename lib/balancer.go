@@ -13,27 +13,6 @@ type LoadBalancer struct {
 	config     *LoadBalancerConfig
 }
 
-// Override default configurations to the LoadBalancer
-// using this configuration format. This can also be parsed
-// from YAML
-type LoadBalancerConfig struct {
-	// Determines whether or not to log the proxied website
-	// each time a request is made.
-	Logging bool
-
-	// TargetFunc is the function that is ran to determine which
-	// proxy to hit.
-	//
-	// If you do not provide a TargetFunc, it will default to
-	// round-robin balancing defined in StandardRRTargeting.
-	//
-	// Custom configuration of this value cannot be done through
-	// YAML. You can only use the predefined TargetFuncs this way.
-	TargetFunc func(bal *LoadBalancer) Server
-
-	// Middlewares []Middleware // PLANNED
-}
-
 // Creates a LoadBalancer with default configurations
 func NewLoadBalancer(servers []Server, balancerPort string) (balancer *LoadBalancer, err error) {
 	if len(servers) == 0 {
